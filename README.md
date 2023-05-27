@@ -10,8 +10,8 @@ While I am using Docker containers, I am running them using Podman. Since none o
 
 ## Home Assistant Files
 
-- [hass/automations.yaml](automations.yaml)
-- [hass/configuration.yaml](configuration.yaml)
+- [automations.yaml](hass/automations.yaml)
+- [configuration.yaml](hass/configuration.yaml)
 
 ## SystemD Service Files
 
@@ -19,12 +19,12 @@ My SystemD services are listed in their startup order. All of the containers are
 
 Each of the service files will attempt to download the latest container as part of a StartPre action.
 
-- [systemd/mqtt.service](mqtt.service)
-- [systemd/zwave.service](zwave.service)
-- [systemd/hass.service](hass.service)
-- [systemd/whisper.service](whisper.service)
-- [systemd/piper.service](piper.service)
-- [systemd/nginx.service](nginx.service)
+- [mqtt.service](systemd/mqtt.service)
+- [zwave.service](systemd/zwave.service)
+- [hass.service](systemd/hass.service)
+- [whisper.service](systemd/whisper.service)
+- [piper.service](systemd/piper.service)
+- [nginx.service](systemd/nginx.service)
 
 ### Restart Script
 
