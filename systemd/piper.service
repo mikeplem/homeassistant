@@ -1,0 +1,14 @@
+[Unit]
+Description=Piper container
+Before=hass.service zwave.service
+
+[Service]
+Restart=on-failure
+RestartSec=10
+ExecStartPre=-/usr/bin/podman rm piper 
+ExecStartPre=-/usr/bin/podman pull docker.io/rhasspy/wyoming-piper:latest
+ExecStart=/usr/bin/podman run --rm --init --name piper -v /root/piper/data:/data --network host docker.io/rhasspy/wyoming-piper:latest --voice en-us-lessac-low
+
+[Install]
+WantedBy=multi-user.target
+

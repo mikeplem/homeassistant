@@ -1,0 +1,15 @@
+[Unit]
+Description=Mosquitto MQTT container
+Before=hass.service zwave.service
+
+[Service]
+Restart=on-failure
+RestartSec=10
+ExecStartPre=-/usr/bin/sleep 10
+ExecStartPre=-/usr/bin/podman rm mqtt
+ExecStartPre=-/usr/bin/podman pull docker.io/eclipse-mosquitto:latest
+ExecStart=/usr/bin/podman run --rm --init --name mqtt -v mosquitto.conf:/root/mqtt/config/mosquitto.conf -v /root/mqtt/data:/opt/mosquitto/data -v /root/mqtt/log:/mosquitto/log --network host docker.io/eclipse-mosquitto:latest
+
+[Install]
+WantedBy=multi-user.target
+

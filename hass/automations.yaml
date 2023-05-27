@@ -1,0 +1,271 @@
+- id: '1621084692233'
+  alias: Turn Off Downtairs
+  description: ''
+  trigger:
+  - platform: time
+    at: '21:30:00'
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
+    entity_id: switch.downstairs_switch
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
+    entity_id: switch.downstairs_switch
+    domain: switch
+  mode: single
+- id: '1621085068348'
+  alias: Turn Off Upstairs
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: '{%- if not is_state("alarm_control_panel.home", "armed_away")
+        -%} true {%- endif -%}'
+    - condition: device
+      type: is_on
+      device_id: 40c1c970e5fd7a6f9d55f3c746585dcd
+      entity_id: switch.in_wall_toggle_switch
+      domain: switch
+  action:
+  - type: turn_off
+    device_id: 40c1c970e5fd7a6f9d55f3c746585dcd
+    entity_id: switch.in_wall_toggle_switch
+    domain: switch
+  mode: single
+- id: '1621086249993'
+  alias: Turn Off Front Door At 4 am
+  description: ''
+  trigger:
+  - platform: time
+    at: 04:00
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 1e38ac225e29516a04a53f7e48408c01
+    entity_id: switch.in_wall_toggle_switch_2
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: 1e38ac225e29516a04a53f7e48408c01
+    entity_id: switch.in_wall_toggle_switch_2
+    domain: switch
+  mode: single
+- id: '1625793522989'
+  alias: Turn On Front Door
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sun.sun
+    attribute: elevation
+    below: '0.0'
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: '15:00:00'
+      before: '21:50:00'
+    - condition: state
+      entity_id: switch.in_wall_toggle_switch_2
+      state: 'off'
+  action:
+  - type: turn_on
+    device_id: 1e38ac225e29516a04a53f7e48408c01
+    entity_id: switch.in_wall_toggle_switch_2
+    domain: switch
+  mode: single
+- id: '1637633079816'
+  alias: Turn Off Front Door
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: switch.in_wall_toggle_switch_2
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 1e38ac225e29516a04a53f7e48408c01
+    entity_id: switch.in_wall_toggle_switch_2
+    domain: switch
+  mode: single
+- id: '1653859128582'
+  alias: Turn On Upstairs
+  description: ''
+  trigger:
+  - type: illuminance
+    platform: device
+    device_id: 0b4424117600867dabbb872eb09ab0d4
+    entity_id: sensor.multisensor_6_illuminance
+    domain: sensor
+    below: 5
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: 09:00:00
+      before: '21:00:00'
+      weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+    - condition: device
+      type: is_off
+      device_id: 40c1c970e5fd7a6f9d55f3c746585dcd
+      entity_id: switch.in_wall_toggle_switch
+      domain: switch
+  action:
+  - type: turn_on
+    device_id: 40c1c970e5fd7a6f9d55f3c746585dcd
+    entity_id: switch.in_wall_toggle_switch
+    domain: switch
+  mode: single
+- id: '1662812027746'
+  alias: Friday 3 AM Backup
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.friday_3am
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: backup.create
+    data: {}
+  mode: single
+- id: '1666450359739'
+  alias: Dryer Leak Notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.flood_freeze_behind_dryer_sensor_state_water
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.twilio
+    data:
+      message: There is a leak near the dryer
+      target:
+      - '+16147834965'
+      - '+16147871065'
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: There is a leak near the dryer
+      title: There is a leak near the dryer
+  mode: single
+- id: '1666450409048'
+  alias: Water Heater Leak Notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.flood_freeze_water_heater_sensor_state_water
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.twilio
+    data:
+      message: There is a leak near the water heater
+      target:
+      - '+16147834965'
+      - '+16147871065'
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: There is a leak near the water heater
+      title: There is a leak near the water heater
+  mode: single
+- id: '1684532243377'
+  alias: Discord Dryer Leak
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.flood_freeze_behind_dryer_sensor_state_water
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.homeassistantcord
+    data:
+      message: <@509490668020957195> <@336671985453105152> There is a leak near the
+        dryer
+      target:
+      - '1109083323659202666'
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: There is a leak near the dryer
+      title: There is a leak near the dryer
+  mode: single
+- id: '1684532416275'
+  alias: Discord Water Heater Leak
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.flood_freeze_water_heater_sensor_state_water
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.homeassistantcord
+    data:
+      message: <@509490668020957195> <@336671985453105152> There is a leak near the
+        water heater
+      target:
+      - '1109083323659202666'
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: There is a leak near the water heater
+      title: There is a leak near the water heater
+  mode: single
+- id: '1684672668373'
+  alias: Turn On Downstairs
+  description: ''
+  trigger:
+  - type: illuminance
+    platform: device
+    device_id: d10e6c0d67b3efa07bcd7fc8a0bb5d5a
+    entity_id: sensor.multisensor_6_illuminance_2
+    domain: sensor
+    below: 5
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: 09:00:00
+      before: '20:30:00'
+      weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+    - condition: device
+      type: is_off
+      device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
+      entity_id: switch.downstairs_switch
+      domain: switch
+  action:
+  - type: turn_on
+    device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
+    entity_id: switch.downstairs_switch
+    domain: switch
+  mode: single
+

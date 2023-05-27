@@ -1,0 +1,14 @@
+[Unit]
+Description=Whisper container
+Before=hass.service zwave.service
+
+[Service]
+Restart=on-failure
+RestartSec=10
+ExecStartPre=-/usr/bin/podman rm whisper
+ExecStartPre=-/usr/bin/podman pull docker.io/rhasspy/wyoming-whisper:latest
+ExecStart=/usr/bin/podman run --rm --init --name whisper -v /root/whisper/data:/data --network host docker.io/rhasspy/wyoming-whisper:latest --model small --language en
+
+[Install]
+WantedBy=multi-user.target
+

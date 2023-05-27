@@ -1,0 +1,16 @@
+[Unit]
+Description=ZWave container
+Before=hass.service
+After=mqtt.service
+
+[Service]
+Restart=on-failure
+RestartSec=10
+ExecStartPre=-/usr/bin/sleep 10
+ExecStartPre=-/usr/bin/podman rm zwave
+ExecStartPre=-/usr/bin/podman pull docker.io/zwavejs/zwave-js-ui:latest
+ExecStart=/usr/bin/podman run --rm --init --name zwave --network host --device=/dev/ttyACM0 -v /root/zwave:/usr/src/app/store docker.io/zwavejs/zwave-js-ui:latest
+
+[Install]
+WantedBy=multi-user.target
+

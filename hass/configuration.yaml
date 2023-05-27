@@ -1,0 +1,42 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.0.0/24
+        - 192.168.1.0/24
+        - 100.64.1.0/24
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 192.168.1.141
+
+# Text to speech
+#tts:
+#  - platform: google_translate
+
+twilio:
+  account_sid: !secret twilio_sid
+  auth_token: !secret twilio_auth_token
+
+notify:
+  - name: twilio
+    platform: twilio_sms
+    from_number: '+13854062381'
+
+
+#zwave:
+#  usb_path: /dev/ttyACM0
+#  network_key: "0x1E, 0x7A, 0x27, 0x11, 0xA6, 0xFE, 0x83, 0xF7, 0xD1, 0x8A, 0x62, 0xB6, 0x21, 0x8D, 0xCA, 0x9C"
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+#camera: !include camera.yaml
+sensor: !include sensor.yaml
+
