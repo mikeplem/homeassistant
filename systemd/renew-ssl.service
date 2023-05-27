@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew SSL Certs
+
+[Service]
+ExecStart=/root/renew-ssl.sh
+
+[Install]
+WantedBy=multi-user.target
+

@@ -34,9 +34,23 @@ I have a [simple restart script](restart_hass.sh) to me keep things up to date.
 
 Since my Home Assistant service is on my internal network and not directly accessibile from the internet I use DNS validation to get my SSL certs. I already have an AWS account so I am using Route53 for my DNS. I wanted something lightweight for the cert process so I chose to use [acme.sh](https://github.com/acmesh-official/acme.sh).
 
+### Initial Cert Issuance Script
+
 ```shell
-./acme.sh --issue --dns dns_aws --server https://acme-v02.api.letsencrypt.org/directory --keylength ec-384 -d homeassistant.n1mtp.com -d hasswg.n1mtp.com
+./acme.sh --issue --dns dns_aws \
+--server https://acme-v02.api.letsencrypt.org/directory \
+--keylength ec-384 \
+-d homeassistant.n1mtp.com \
+-d hasswg.n1mtp.com
 ```
+
+### Renewal Script
+
+**This still has to be tested.**
+
+- [renew-ssl.sh](renew-ssl.sh)
+- [renew-ssl.service](systemd/renew-ssl.service)
+- [renew-ssl.timer](systemd/renew-ssl.timer)
 
 ## NGINX Configuration
 
