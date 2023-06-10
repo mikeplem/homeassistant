@@ -1,0 +1,14 @@
+# 7591 is new albany location
+#- platform: waqi
+#  token: !secret waqi_token
+#  locations:
+#    - ohio
+#  stations:
+#    - new albany
+
+# http://api.waqi.info/feed/@7591/?token=
+- platform: rest
+  name: New Albany Air Quality
+  resource: !secret waqi_api
+  value_template: '{{ value_json.data.aqi }}'
+
