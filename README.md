@@ -67,6 +67,8 @@ My [NGINX config](nginx/nginx.conf) file came from what I found on HASS communit
 
 ## Frigate NVR
 
+[Frigate NVR](https://frigate.video/)
+
 I purposely do NOT have my cameras configured into Home Assistant directly. I am using the Frigate addon to give me the camera feeds. My reasoning, is I would rather have a single source of truth when it comes to the cameras.
 
 I replaced my Ring system with [Reolink](https://reolink.com/) devices and using Frigate as the network video recorder (NVR)
