@@ -89,11 +89,10 @@ The server is a [Zotac ZBOX BI325 computer](https://www.zotac.com/ca/product/min
 Rather than installing Docker, I install podman and podman-compose.
 
 - [Docker compose config](frigate/frigate-compose.yaml)
+    - The Docker compose file is placed in `/frigate/`
 - [Frigate config](frigate/config.yml)
+    - The Frigate config file is placed in `/frigate/config/`
 - [SystemD Service](frigate/frigate.service)
-
-- The Docker compose file is placed in `/frigate/`
-- The Frigate config file is placed in `/frigate/config/`
 
 ### Frigate / Home Assistant Integration
 
