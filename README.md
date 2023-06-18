@@ -30,6 +30,15 @@ Each of the service files will attempt to download the latest container as part 
 
 I have a [simple restart script](restart_hass.sh) to me keep things up to date.
 
+### MQTT Configuration
+
+I had to make sure the MQTT broker (server) on my Home Assistant server was listening on all interfaces. Because this network is on my private network, I do not have authentication or SSL setup in MQTT. This is not great practice but it is a choice I made.
+
+```
+listener 1883
+allow_anonymous true
+```
+
 ## Let's Encrypt
 
 Since my Home Assistant service is on my internal network and not directly accessibile from the internet I use DNS validation to get my SSL certs. I already have an AWS account so I am using Route53 for my DNS. I wanted something lightweight for the cert process so I chose to use [acme.sh](https://github.com/acmesh-official/acme.sh).
@@ -55,4 +64,51 @@ Since my Home Assistant service is on my internal network and not directly acces
 ## NGINX Configuration
 
 My [NGINX config](nginx/nginx.conf) file came from what I found on HASS community forums but I found that when I ran it, the performance in the browser and companion app was slow so I ended up commenting out many options. Your mileage may vary.
+
+## Frigate NVR
+
+I purposely do NOT have my cameras configured into Home Assistant directly. I am using the Frigate addon to give me the camera feeds. My reasoning, is I would rather have a single source of truth when it comes to the cameras.
+
+I replaced my Ring system with [Reolink](https://reolink.com/) devices and using Frigate as the network video recorder (NVR)
+
+### TODO
+
+I still have to get motion detection notifications configured.
+
+### Frigate Host Directory Structure
+
+```shell
+sudo mkdir -p /frigate/config
+sudo mkdir -p /frigate/storage
+```
+
+### Frigate Configs
+
+The server is a [Zotac ZBOX BI325 computer](https://www.zotac.com/ca/product/mini_pcs/zbox-bi325) running 8 GB of RAM and a 240 GB SSD. It is running Debian 12 (Bookworm). To help with the detection, I bought the [Coral M.2 A+E keyed TPU](https://coral.ai/products/m2-accelerator-ae). The computer had a WiFi adapter in its M.2 slot but I am using the ethernet connection so I do not need WiFi.
+
+Rather than installing Docker, I install podman and podman-compose.
+
+- [Docker compose config](frigate/frigate-compose.yaml)
+- [Frigate config](frigate/config.yml)
+- [SystemD Service](frigate/frigate.service)
+
+- The Docker compose file is placed in `/frigate/`
+- The Frigate config file is placed in `/frigate/config/`
+
+### Frigate / Home Assistant Integration
+
+My Home Assistant installation is using a Docker container so I installed HACS to be the Frigate addon, which makes things really nice.
+
+## Reolink Cameras
+
+I have three cameras but one is battery operated / solar powered so it is not linked into Frigate due to the camera not having the necessary configuration.
+    - I do wonder how true this is since the Reolink phone app can see the camera. It has to be using some connection.
+
+- [Argus 3 Pro](https://reolink.com/product/argus-3-pro/)
+- [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
+- [Video Doorbell WiFi](https://reolink.com/product/reolink-video-doorbell-wifi/)
+
+### Camera Configs
+
+I am using RTSP for the camera configuration which is configured through the web interface to the camera.
 

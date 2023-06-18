@@ -1,0 +1,134 @@
+# yaml-language-server: $schema=http://frigate.n1mtp.com:5000/api/config/schema.json
+# https://docs.frigate.video/configuration/
+logger:
+  default: info
+  logs:
+    frigate.mqtt: info
+
+mqtt:
+  host: MQTT_HOST
+
+detectors:
+  coral1:
+    type: edgetpu
+    device: pci
+
+ffmpeg:
+  hwaccel_args: preset-vaapi
+  input_args: preset-rtsp-restream
+  output_args: 
+    record: preset-record-generic
+
+# possible recommended settings for reolink
+# these are ONVIF configs
+# go2rtc:
+#   streams:
+#     reolink: 
+#       - http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=username&password=password
+#       - "ffmpeg:reolink#audio=opus"
+#     reolink_sub: 
+#       - http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=username&password=password
+
+go2rtc:
+  streams:
+    doorbell:
+      - rtsp://admin:PASSWORD@CAMERA_IP:554/h264Preview_01_sub
+    floodlight:
+      - rtsp://admin:PASSWORD@CAMERA_IP:554/h264Preview_01_sub
+  webrtc:
+    candidates:
+      - FRIGATE_IP:8555
+
+record:
+  enabled: True
+  retain:
+    days: 7
+    mode: motion
+  events:
+    retain:
+      default: 14
+      mode: active_objects
+
+snapshots:
+  enabled: True
+  clean_copy: True
+  timestamp: True
+  bounding_box: False
+  retain:
+    default: 10
+
+objects:
+  track:
+    - car
+    - person
+    - cat
+
+cameras:
+  doorbell:
+    enabled: true
+    objects:
+      track:
+        - person
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/doorbell
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 640
+      height: 480
+      fps: 10
+    record:
+      events:
+        required_zones:
+          - doorbell_enter_driveway
+    # coordinates to ignore
+    motion:
+      mask:
+        - 640,314,640,0,0,0,0,156
+    # only record events where car enters the driveway
+    # since a car is always parked in the driveway
+    # do not alert on the stationary object
+    zones:
+      doorbell_enter_driveway:
+        coordinates: 319,332,356,299,270,285,233,309
+      doorbell_driveway:
+        coordinates: 160,457,301,339,215,316,55,374
+
+  floodlight:
+    enabled: true
+    objects:
+      track:
+        - person
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/floodlight
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 4096
+      height: 1536
+      fps: 10
+    record:
+      events:
+        required_zones:
+          - flood_enter_driveway
+          - flood_front_door
+    # coordinates to ignore
+    motion:
+      mask:
+        - 0,0,0,1274,1129,622,3227,467,3397,340,3661,340,4096,275,4096,0
+    # only record events where car enters the driveway
+    # since a car is always parked in the driveway
+    # do not alert on the stationary object
+    zones:
+      flood_enter_driveway:
+        coordinates: 2193,633,2051,492,1661,543,1704,713
+      flood_driveway:
+        coordinates: 2891,1118,2218,648,1697,724,1751,1426
+      flood_front_door:
+        coordinates: 3585,1161,3665,962,3799,467,3173,391,2688,977,3437,1426
