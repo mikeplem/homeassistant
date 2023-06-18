@@ -101,7 +101,8 @@ My Home Assistant installation is using a Docker container so I installed HACS t
 ## Reolink Cameras
 
 I have three cameras but one is battery operated / solar powered so it is not linked into Frigate due to the camera not having the necessary configuration.
-    - I do wonder how true this is since the Reolink phone app can see the camera. It has to be using some connection.
+
+I do wonder how true this is since the Reolink phone app can see the camera. It has to be using some connection.
 
 - [Argus 3 Pro](https://reolink.com/product/argus-3-pro/)
 - [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
