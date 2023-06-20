@@ -88,6 +88,7 @@ cameras:
     motion:
       mask:
         - 640,314,640,0,0,0,0,156
+        - 128,261,171,275,21,301,0,272
     # only record events where car enters the driveway
     # since a car is always parked in the driveway
     # do not alert on the stationary object
@@ -121,7 +122,7 @@ cameras:
     # coordinates to ignore
     motion:
       mask:
-        - 0,0,0,1274,1129,622,3227,467,3397,340,3661,340,4096,275,4096,0
+        - 0,0,0,1274,1129,622,3130,557,3455,405,3661,340,4096,275,4096,0
     # only record events where car enters the driveway
     # since a car is always parked in the driveway
     # do not alert on the stationary object

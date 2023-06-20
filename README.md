@@ -73,9 +73,11 @@ I purposely do NOT have my cameras configured into Home Assistant directly. I am
 
 I replaced my Ring system with [Reolink](https://reolink.com/) devices and using Frigate as the network video recorder (NVR)
 
-### TODO
+### Notifications
 
-I still have to get motion detection notifications configured.
+I am [using this blueprint](https://community.home-assistant.io/t/frigate-mobile-app-notifications-2-0/559732) to configure the notifications. You may also want to use the [Github link to the blueprint](https://github.com/SgtBatten/HA_blueprints/tree/main/Frigate%20Camera%20Notifications).
+
+I also [found this website](https://github.com/SgtBatten/HA_blueprints/tree/main/Frigate%20Camera%20Notifications) to be somewhat helpful as another reference. It appears to be talking about a slightly older version of the blueprint but it was enough to give me some answers to questions I had.
 
 ### Frigate Host Directory Structure
 
