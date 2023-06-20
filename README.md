@@ -100,6 +100,37 @@ Rather than installing Docker, I install podman and podman-compose.
     - The Frigate config file is placed in `/frigate/config/`
 - [SystemD Service](frigate/frigate.service)
 
+### Friget Coral Software
+
+```shell
+sudo apt install gasket-dkms libedgetpu1-std
+```
+
+### Frigate Intel VAAPI
+
+Since the server is running an 8th gen (or better) processor and I wanted hardware acceleration I installed the following packages.
+
+This requires added the non-free option to the apt sources list.
+
+`cat /etc/apt/sources.list`
+
+```shell
+deb http://deb.debian.org/debian/ bookworm main non-free-firmware non-free
+deb-src http://deb.debian.org/debian/ bookworm main non-free-firmware non-free
+
+deb http://security.debian.org/debian-security bookworm-security main non-free-firmware non-free
+deb-src http://security.debian.org/debian-security bookworm-security main non-free-firmware non-free
+
+# bookworm-updates, to get updates before a point release is made;
+# see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
+deb http://deb.debian.org/debian/ bookworm-updates main non-free-firmware non-free
+deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware non-free
+```
+
+```shell
+sudo apt install vainfo intel-media-va-driver-non-free
+```
+
 ### Frigate / Home Assistant Integration
 
 My Home Assistant installation is using a Docker container so I installed HACS to be the Frigate addon, which makes things really nice.
