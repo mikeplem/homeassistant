@@ -116,3 +116,4 @@ I do wonder how true this is since the Reolink phone app can see the camera. It 
 
 I am using RTSP for the camera configuration which is configured through the web interface to the camera.
 
+Something else I had done with the cameras that probably does not matter so much if you only use Frigate to send notifications is that I used the mobile app to paint the areas that I wanted the cameras to ignore.
