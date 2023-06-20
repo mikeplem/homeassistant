@@ -2,6 +2,8 @@
 
 My Home Assistant server is running Debian and Docker containers.
 
+The server is an Intel NUC, Intel NUC 8 Mainstream Kit (NUC8i3BEH), with 8 GB of RAM and a 250 GB NVME drive.
+
 All of my controllable devices are Z-Wave so I have an [Aeotec Z-Stick Gen 5](https://aeotec.com/products/aeotec-z-stick-gen5/)
 
 ## Docker Notes
