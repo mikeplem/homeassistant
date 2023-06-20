@@ -97,6 +97,8 @@ cameras:
         coordinates: 319,332,356,299,270,285,233,309
       doorbell_driveway:
         coordinates: 160,457,301,339,215,316,55,374
+      doorbell_front_door:
+        coordinates: 412,319,113,300,0,480,430,480
 
   floodlight:
     enabled: true
