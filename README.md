@@ -155,7 +155,7 @@ I ought to try using rtmp but I have not done that yet.
 
 I have an [automation](hass/reolink_doorbell_automation.yaml) setup to notify the Home Assistant Companion App on my phone when someone presses the button on the doorbell. The linked automation is the YAML version of what I am using.
 
-In my [Home Assistant configuration](hass/configuration.yaml) file I setup a notify group so that I can notify more than one companion app at a time.
+In my [Home Assistant configuration](hass/configuration.yaml) file I setup a notify group so that I can notify more than one companion app at a time. Look under the `notify:` block. The group is called `frigate_phones`.
 
 ## Neolink
 
