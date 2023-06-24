@@ -26,6 +26,11 @@ notify:
   - name: twilio
     platform: twilio_sms
     from_number: !secret twilio_number
+  - name: frigate_phones
+    platform: group
+    services:
+      - service: mobile_app_COMPANION_APP_DEVICE_NAME_ONE
+      - service: mobile_app_COMPANION_APP_DEVICE_NAME_TWO
 
 #conversation:
 #assist_pipeline:

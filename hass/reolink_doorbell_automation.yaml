@@ -1,0 +1,17 @@
+alias: Notify Doorbell Pushed
+description: ""
+trigger:
+  - type: turned_on
+    platform: device
+    device_id: 53f541e078dd8bce4b8fe9773b61862c
+    entity_id: binary_sensor.reolink_video_doorbell_wifi_visitor
+    domain: binary_sensor
+condition: []
+action:
+  - service: notify.frigate_phones
+    data:
+      message: Someone is at the door
+      title: Knock Knock
+      target:
+        - nofity.frigate_phones
+mode: single
