@@ -147,6 +147,12 @@ I do wonder how true this is since the Reolink phone app can see the camera. It 
 - [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
 - [Video Doorbell WiFi](https://reolink.com/product/reolink-video-doorbell-wifi/)
 
+### Reolink Home Assistant Integration
+
+I wanted to trigger an automation when the doorbell button was pressed. That requires the Reolink integration BUT the default video setting in the intergration interferes with the Frigate vide feed. I changed the Home Assistant integration to use flv rather than rtsp.
+
+I ought to try using rtmp but I have not done that yet.
+
 ### Camera Configs
 
 I am using RTSP for the camera configuration which is configured through the web interface to the camera.
