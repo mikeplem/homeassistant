@@ -153,6 +153,8 @@ I ought to try using rtmp but I have not done that yet.
 
 ## Neolink
 
+**IMPORTANT: This WILL drain the battery in a matter of hours.**
+
 I am running Neolink on my Frigate server.
 
 It turns out that it is possible to stream the battery powered cameras into Frigate. I was curious how port 9000 worked with the camera and came across [Neolink](https://github.com/thirtythreeforty/neolink).
