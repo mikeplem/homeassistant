@@ -1,6 +1,6 @@
 [Unit]
 Description=Frigate NVR
-After=network.target neolink.service
+After=network.target
 
 [Service]
 ExecStart=/usr/bin/podman-compose -f /frigate/frigate-compose.yaml up
