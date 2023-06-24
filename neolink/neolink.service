@@ -1,0 +1,13 @@
+[Unit]
+Description=Neolink service
+Documentation=https://github.com/thirtythreeforty/neolink
+After=network.target
+Before=frigate.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/podman run --rm --name neolink --network=host --restart=on-failure --volume=/neolink/neolink.toml:/etc/neolink.toml:ro docker.io/thirtythreeforty/neolink
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -141,8 +141,6 @@ I made sure to install the latest firmware updates on flood light and video door
 
 I have three cameras but one is battery operated / solar powered so it is not linked into Frigate due to the camera not having the necessary configuration.
 
-I do wonder how true this is since the Reolink phone app can see the camera. It has to be using some connection.
-
 - [Argus 3 Pro](https://reolink.com/product/argus-3-pro/)
 - [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
 - [Video Doorbell WiFi](https://reolink.com/product/reolink-video-doorbell-wifi/)
@@ -152,6 +150,49 @@ I do wonder how true this is since the Reolink phone app can see the camera. It 
 I wanted to trigger an automation when the doorbell button was pressed. That requires the Reolink integration BUT the default video setting in the intergration interferes with the Frigate vide feed. I changed the Home Assistant integration to use flv rather than rtsp.
 
 I ought to try using rtmp but I have not done that yet.
+
+## Neolink
+
+I am running Neolink on my Frigate server.
+
+It turns out that it is possible to stream the battery powered cameras into Frigate. I was curious how port 9000 worked with the camera and came across [Neolink](https://github.com/thirtythreeforty/neolink).
+
+It would be smart to read the following as well. You may not need these but it is worth mentioning.
+
+- [unix_service.md](https://github.com/thirtythreeforty/neolink/blob/master/docs/unix_service.md)
+- [unix_setup.md](https://github.com/thirtythreeforty/neolink/blob/master/docs/unix_setup.md)
+
+### Neolink Config
+
+```shell
+mkdir -p /neolink
+```
+
+- [systemD Service](neolink/neolink.service)
+- [neolink config](neolink/neolink.toml)
+
+#### Camera resolution
+
+```shell
+ffprobe -show_entries stream=width,height rtsp://NEOLINK_IP:8654/deck/subStream
+
+... snip some output ...
+
+Input #0, rtsp, from 'rtsp://NEOLINK_IP:8654/deck/subStream':
+  Metadata:
+    title           : Session streamed with GStreamer
+    comment         : rtsp-server
+  Duration: N/A, start: 0.064000, bitrate: N/A
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 896x512, 90k tbr, 90k tbn, 180k tbc
+  Stream #0:1: Audio: pcm_s16be, 16000 Hz, 1 channels, s16, 256 kb/s
+[STREAM]
+width=896
+height=512
+[/STREAM]
+[STREAM]
+[/STREAM]
+
+```
 
 ### Camera Configs
 

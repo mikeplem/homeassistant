@@ -19,16 +19,6 @@ ffmpeg:
   output_args: 
     record: preset-record-generic
 
-# possible recommended settings for reolink
-# these are ONVIF configs
-# go2rtc:
-#   streams:
-#     reolink: 
-#       - http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_main.bcs&user=username&password=password
-#       - "ffmpeg:reolink#audio=opus"
-#     reolink_sub: 
-#       - http://reolink_ip/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user=username&password=password
-
 go2rtc:
   streams:
     doorbell:
@@ -136,3 +126,20 @@ cameras:
         coordinates: 2891,1118,2218,648,1697,724,1751,1426
       flood_front_door:
         coordinates: 3585,1161,3665,962,3799,467,3173,391,2688,977,3437,1426
+
+  deck:
+    enabled: true
+    objects:
+      track:
+        - person
+    ffmpeg:
+      inputs:
+        - path: rtsp://NEOLINK_IP:8654/deck/subStream
+          roles:
+            - detect
+            - record
+    detect:
+      enabled: true
+      width: 896
+      height: 512
+      fps: 10
