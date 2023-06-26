@@ -58,6 +58,7 @@ cameras:
     enabled: true
     objects:
       track:
+        - car
         - person
     ffmpeg:
       inputs:
@@ -95,6 +96,7 @@ cameras:
     enabled: true
     objects:
       track:
+        - car
         - person
     ffmpeg:
       inputs:
@@ -104,8 +106,8 @@ cameras:
             - record
     detect:
       enabled: true
-      width: 4096
-      height: 1536
+      width: 1536
+      height: 576
       fps: 10
     record:
       events:
