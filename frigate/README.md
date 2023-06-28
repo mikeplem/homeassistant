@@ -11,7 +11,7 @@ Note: The `masks` are the black boxes.
 ```
 record:
     events:
-    required_zones:
+      required_zones:
         - doorbell_front_door
         - doorbell_enter_driveway
 motion:
@@ -36,7 +36,7 @@ zones:
 ```
 record:
     events:
-    required_zones:
+      required_zones:
         - flood_enter_driveway
         - flood_front_door
 motion:
