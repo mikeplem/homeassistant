@@ -131,6 +131,9 @@ deb-src http://deb.debian.org/debian/ bookworm-updates main non-free-firmware no
 sudo apt install vainfo intel-media-va-driver-non-free
 ```
 
+### Frigate Zones and Masks
+
+[My running zones and masks](frigate/README.md)
 ### Frigate / Home Assistant Integration
 
 My Home Assistant installation is using a Docker container so I installed HACS to be the Frigate addon, which makes things really nice.

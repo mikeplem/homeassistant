@@ -79,8 +79,8 @@ cameras:
     # coordinates to ignore
     motion:
       mask:
-        - 640,314,640,0,0,0,0,156
-        - 128,261,171,275,21,301,0,272
+        - 640,314,640,0,0,0,0,254
+        - 128,261,171,275,0,303,0,272
     # only record events where car enters the driveway
     # since a car is always parked in the driveway
     # do not alert on the stationary object
@@ -90,7 +90,7 @@ cameras:
       doorbell_driveway:
         coordinates: 160,457,301,339,215,316,55,374
       doorbell_front_door:
-        coordinates: 412,319,113,300,0,480,430,480
+        coordinates: 360,396,248,385,87,480,430,480
 
   floodlight:
     enabled: true
@@ -116,18 +116,18 @@ cameras:
     # coordinates to ignore
     motion:
       mask:
-        - 0,0,0,1443,1318,576,1624,523,2299,470,2995,552,3287,611,3629,465,4096,450,4096,0
-        - 128,261,171,275,21,301,0,272
+        - 0,0,491,0,494,221,0,576
+        - 474,0,1536,0,1536,231,1230,219,834,173,519,211
     # only record events where car enters the driveway
     # since a car is always parked in the driveway
     # do not alert on the stationary object
     zones:
       flood_enter_driveway:
-        coordinates: 2220,619,2063,465,1610,523,1639,698
+        coordinates: 617,191,777,173,811,225,633,241
       flood_driveway:
-        coordinates: 2891,1118,2218,648,1697,724,1751,1426
+        coordinates: 630,245,830,225,1093,428,652,554
       flood_front_door:
-        coordinates: 3585,1161,3665,962,3799,467,3173,391,2688,977,3437,1426
+        coordinates: 1077,293,1257,233,1414,273,1354,457,1096,413,1034,372
 
   deck:
     enabled: true
