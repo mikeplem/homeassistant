@@ -126,7 +126,7 @@ cameras:
     # do not alert on the stationary object
     zones:
       flood_enter_driveway:
-        coordinates: 621,201,777,173,808,203,637,225
+        coordinates: 621,201,778,184,808,203,637,225
       flood_driveway:
         coordinates: 630,245,830,225,1093,428,652,554
       flood_front_door:
