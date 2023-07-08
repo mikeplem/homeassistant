@@ -144,7 +144,8 @@ I made sure to install the latest firmware updates on flood light and video door
 
 I have three cameras but one is battery operated / solar powered so it is not linked into Frigate due to the camera not having the necessary configuration.
 
-- [Argus 3 Pro](https://reolink.com/product/argus-3-pro/)
+- [Argus 3 Pro](https://reolink.com/product/argus-3-pro/) - Replaced by RLC-811A
+- [RLC-811A](https://reolink.com/product/rlc-811a/)
 - [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
 - [Video Doorbell WiFi](https://reolink.com/product/reolink-video-doorbell-wifi/)
 
