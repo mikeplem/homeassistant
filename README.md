@@ -149,6 +149,52 @@ I have three cameras but one is battery operated / solar powered so it is not li
 - [Duo Flood Light WiFi](https://reolink.com/product/reolink-duo-floodlight-wifi/)
 - [Video Doorbell WiFi](https://reolink.com/product/reolink-video-doorbell-wifi/)
 
+### Reolink Network Port Gotcha
+
+I am not sure why but after nearly a month of successful usage with my Floodlight camera the HTTP and HTTPS ports stopped working on my wired connection. The RTSP and ONVIF ports were still open. Unfortunately, the HTTPS port is used with the Reolink integration.
+
+A factory reset, a power cycle, and a camera restore did not bring the ports back into service. In fact, it got worse. The only port that was open was 9000. I was now completely locked out of the device via the wired connection. Thankfully, the device is also configured for WiFi and when I disconnected the ethernet cable, the WiFi connection came up and all HTTP and HTTPS ports were open. I was able to get into the web interface and turn on the RTSP and ONVIF ports again.
+
+With the ports re-enabled, I plugged the wired connection back in and everything was back to normal. Frigate could see the camera and the I Reolink integration was working again.
+
+Nmap command I used.
+
+```shell
+❯ sudo nmap -v -Pn _CAMERA_IP_
+[sudo] password for mike:
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-07-16 15:39 EDT
+Initiating ARP Ping Scan at 15:39
+Scanning _CAMERA_IP_ [1 port]
+Completed ARP Ping Scan at 15:39, 0.03s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 15:39
+Completed Parallel DNS resolution of 1 host. at 15:39, 0.05s elapsed
+Initiating SYN Stealth Scan at 15:39
+Scanning _CAMERA_IP_ [1000 ports]
+Discovered open port 80/tcp on _CAMERA_IP_
+Discovered open port 554/tcp on _CAMERA_IP_
+Discovered open port 443/tcp on _CAMERA_IP_
+Discovered open port 8000/tcp on _CAMERA_IP_
+Discovered open port 6001/tcp on _CAMERA_IP_
+Discovered open port 9000/tcp on _CAMERA_IP_
+Completed SYN Stealth Scan at 15:39, 0.16s elapsed (1000 total ports)
+Nmap scan report for _CAMERA_IP_
+Host is up (0.0048s latency).
+Not shown: 994 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+554/tcp  open  rtsp
+6001/tcp open  X11:1
+8000/tcp open  http-alt
+9000/tcp open  cslistener
+MAC Address: EC:71:DB:11:B6:94 (Shenzhen Baichuan Digital Technology)
+
+Read data files from: /usr/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 0.53 seconds
+           Raw packets sent: 1001 (44.028KB) | Rcvd: 1001 (40.052KB)
+
+```
+
 ### Reolink Home Assistant Integration
 
 I wanted to trigger an automation when the doorbell button was pressed. That requires the Reolink integration BUT the default video setting in the intergration interferes with the Frigate vide feed. I changed the Home Assistant integration to use flv rather than rtsp.
