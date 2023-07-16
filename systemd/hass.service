@@ -5,11 +5,10 @@ After=network.target mqtt.service zwave.service
 [Service]
 ExecStartPre=-/usr/bin/sleep 10
 ExecStartPre=-/usr/bin/podman rm hass
-ExecStartPre=-/usr/bin/podman pull docker.io/homeassistant/home-assistant
-ExecStart=/usr/bin/podman run --rm --name hass --device /dev/ttyACM0:/dev/ttyACM0 -v /root/hass:/config:Z -v /etc/localtime:/etc/localtime:ro --network=host docker.io/homeassistant/home-assistant
+ExecStartPre=-/usr/bin/podman pull ghcr.io/home-assistant/home-assistant:stable
+ExecStart=/usr/bin/podman run --rm --name hass --device /dev/ttyACM0:/dev/ttyACM0 -v /root/hass:/config:Z -v /etc/localtime:/etc/localtime:ro --network=host ghcr.io/home-assistant/home-assistant:stable
 Restart=on-failure
 RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
-

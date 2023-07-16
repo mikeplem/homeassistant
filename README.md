@@ -167,12 +167,12 @@ In my [Home Assistant configuration](hass/configuration.yaml) file I setup a not
 
 I am running Neolink on my Frigate server.
 
-It turns out that it is possible to stream the battery powered cameras into Frigate. I was curious how port 9000 worked with the camera and came across [Neolink](https://github.com/thirtythreeforty/neolink).
+It turns out that it is possible to stream the battery powered cameras into Frigate. I was curious how port 9000 worked with the camera and came across [Neolink](https://github.com/QuantumEntangledAndy/neolink).
 
 It would be smart to read the following as well. You may not need these but it is worth mentioning.
 
-- [unix_service.md](https://github.com/thirtythreeforty/neolink/blob/master/docs/unix_service.md)
-- [unix_setup.md](https://github.com/thirtythreeforty/neolink/blob/master/docs/unix_setup.md)
+- [unix_service.md](https://github.com/QuantumEntangledAndy/neolink/blob/master/docs/unix_service.md)
+- [unix_setup.md](https://github.com/QuantumEntangledAndy/neolink/blob/master/docs/unix_setup.md)
 
 ### Neolink Config
 

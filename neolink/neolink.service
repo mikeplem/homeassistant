@@ -1,12 +1,16 @@
 [Unit]
 Description=Neolink service
-Documentation=https://github.com/thirtythreeforty/neolink
+Documentation=https://github.com/QuantumEntangledAndy/neolink
 After=network.target
 Before=frigate.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/podman run --rm --name neolink --network=host --restart=on-failure --volume=/neolink/neolink.toml:/etc/neolink.toml:ro docker.io/thirtythreeforty/neolink
+ExecStartPre=-/usr/bin/podman rm neolink
+ExecStartPre=-/usr/bin/podman pull docker.io/quantumentangledandy/neolink
+ExecStart=/usr/bin/podman run --rm --name neolink --network=host --restart=on-failure --volume=/neolink/neolink.toml:/etc/neolink.toml:ro docker.io/quantumentangledandy/neolink
+ExecStop=/usr/bin/podman stop neolink
+ExecStopPost=-/usr/bin/podman rm neolink
 Restart=on-failure
 
 [Install]

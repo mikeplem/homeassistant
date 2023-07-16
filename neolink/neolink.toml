@@ -4,8 +4,7 @@
 bind = "0.0.0.0"
 
 # Default port is 8554 but you can change it by uncommenting the following
-# Frigate listens on 8554 so use a different port
-bind_port = 8654
+# bind_port = 8554
 
 # Uncomment the following and supply a path to a valid PEM
 # to activate TLS encryption.
@@ -30,14 +29,22 @@ bind_port = 8654
 # name = "someone"
 # pass = "someonepass"
 
-[[cameras]]
-name = "CAMERA_NAME"
-username = "admin"
-password = "CAMERA_PASSWORD"
-#address = "CAMERA_IP:9000"
+# [[cameras]]
+# name = "driveway"
+# username = "admin"
+# password = "12345678"
+# address = "192.168.1.187:9000"
+# mqtt.broker_addr = "192.168.1.122"
+# mqtt.port = 1883
+# mqtt.credentials = ["mqtt_user", "mqtt_password"]
+# MQTT Discovery: https://www.home-assistant.io/integrations/mqtt/#mqtt-discovery
+# mqtt.discovery.topic = "homeassistant" # Uncomment to enable
+# If using discovery, _ characters are replaced with spaces in the name and title case is applied
+# mqtt.discovery.features = ["floodlight"] # Uncomment if this camera has a spotlight/floodlight
+
 # If you use a battery camera: **Instead** of an `address` supply the uid
 # as follows
-uid = "ABCD01234567890EFG"
+# uid = "ABCD01234567890EFG"
 
 # By default any of the users can connect (or anyone at all if no users are specfied)
 # You can uncomment the following to permit only specfic users
@@ -46,7 +53,57 @@ uid = "ABCD01234567890EFG"
 # By default "both" "mainStream" and "subStream" are connected
 # If your device has user connection limits try a single stream instead.
 # stream = "mainStream"
-stream = "subStream"
+
+# By default neolink will use any means to connect to the camera
+# from a UID
+# This include relaying via reolink servers
+# This variable `discovery` controls the method of UID discovery
+# - Possible values
+# "relay" # Any means including connecting and transmitting through reolink
+# "map" # Register our local ip address with reolink and ask the camera to connect to us but don't relay data through reolink
+# "remote" # Register our local ip address with reolink but only permit same network connections (useful if broadcast is not possible)
+# "local" # Do not contact reolink servers at all. Rely soley on local UDP broadcast based discovery
+#
+# "cellular" # Cellular camera only support Relay and Map to speed up connecting to them this option will skip the local/remote
+#
+# discovery = "relay"
+
+# Certain types of camera emit status messages (such as battery levels)
+#
+# By default we hide these status messages from the user but you can instead requst that
+# they be printed to stdout using print_format
+#
+# Valid values are:
+# - None
+# - Human
+# - Xml
+#
+# print_format = "None"
+
+# Internally neolink uses a buffer to improve delivery of frames at their actual times
+# A large buffer can work even for large interupts in the connection with the camera
+# A small buffer will reduce the latency introduced
+# buffer_size: 100
+
+# Over long periods of time the camera buffer can exhaust with no means of recovery
+# to combat this a time stretching stratery is employed where the stream is slowed
+# as the buffer is exhausted and sped up when full
+# this can keep the camera and rtsp streams in sync and reduce buffer exhaustions
+#
+# HOWEVER if there is real latency issues (such as too high a bitrate)
+# then smoothing can result in a stream appearing in slow motion
+#
+# you can disable and enable this feature here
+# use_smoothing: true
+
+# [[cameras]]
+# name = "storage shed"
+# username = "admin"
+# password = "987654321"
+# address = "192.168.1.245:9000"
+# If you use a battery camera: **Instead** of an `address` supply the uid
+# as follows
+# uid = "ABCD01234567890EFG"
 
 # If you use an NVR that relays several camera connections you can choose which
 # camera to connect to with by setting the `channel_id`
@@ -55,4 +112,3 @@ stream = "subStream"
 # **Note**: that unlike in the offical client the  numbering starts from 0 not 1.
 # An 8 channel NVR would have channels 0 through 7
 # channel_id = 0
-
