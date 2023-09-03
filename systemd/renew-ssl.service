@@ -2,7 +2,7 @@
 Description=Renew SSL Certs
 
 [Service]
-ExecStart=/root/renew-ssl.sh
+ExecStart=/root/acme.sh/acme.sh --renew-all
 
 [Install]
 WantedBy=multi-user.target

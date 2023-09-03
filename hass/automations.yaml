@@ -146,7 +146,7 @@
     data: {}
   mode: single
 - id: '1666450359739'
-  alias: Dryer Leak Notification
+  alias: Notify Twilio Dryer Leak
   description: ''
   trigger:
   - platform: state
@@ -168,7 +168,7 @@
       title: There is a leak near the dryer
   mode: single
 - id: '1666450409048'
-  alias: Water Heater Leak Notification
+  alias: Notify Twilio Water Heater Leak
   description: ''
   trigger:
   - platform: state
@@ -190,7 +190,7 @@
       title: There is a leak near the water heater
   mode: single
 - id: '1684532243377'
-  alias: Discord Dryer Leak
+  alias: Notify Discord Dryer Leak
   description: ''
   trigger:
   - platform: state
@@ -212,7 +212,7 @@
       title: There is a leak near the dryer
   mode: single
 - id: '1684532416275'
-  alias: Discord Water Heater Leak
+  alias: Notify Discord Water Heater Leak
   description: ''
   trigger:
   - platform: state
@@ -233,7 +233,7 @@
       message: There is a leak near the water heater
       title: There is a leak near the water heater
   mode: single
-- id: '1684672668373'
+- id: '1686615431510'
   alias: Turn On Downstairs
   description: ''
   trigger:
@@ -257,15 +257,225 @@
       - thu
       - fri
       - sat
-    - condition: device
-      type: is_off
-      device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
+    - condition: state
       entity_id: switch.downstairs_switch
-      domain: switch
+      state: 'off'
   action:
   - type: turn_on
     device_id: 6e0e76eb8cf2734e4c2cd560c315df8a
     entity_id: switch.downstairs_switch
     domain: switch
   mode: single
+- id: '1687220781344'
+  alias: Notify Test App Mike
+  description: ''
+  trigger:
+  - platform: time
+    at: '11:37:00'
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: msg 2
+      title: test tite 2
+      target:
+      - notify.mobile_app_pixel_6_mike
+  mode: single
+- id: '1687361480935'
+  alias: Notify Test App Steph
+  description: ''
+  trigger:
+  - platform: time
+    at: '11:36:00'
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_6_steph
+    data:
+      message: test message
+      title: test title
+      target:
+      - notify.mobile_app_pixel_6_steph
+  mode: single
+- id: '1687559017914'
+  alias: Notify All Phones Doorbell
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      notify_group: frigate_phones
+      camera: camera.doorbell
+      critical: 'true'
+      zone_filter: true
+      base_url: NABU_CASA_URL
+      zones:
+      - doorbell_front_door
+- id: '1687559556435'
+  alias: Notify All Phone Driveway
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      notify_group: frigate_phones
+      camera: camera.floodlight
+      critical: 'true'
+      zone_filter: true
+      base_url: NABU_CASA_URL
+      zones:
+      - flood_enter_driveway
+- id: '1687560198684'
+  alias: 'Notify Steph Doorbell '
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.doorbell
+      notify_device: d7b9b30b1031aa25747347c259424903
+      base_url: NABU_CASA_URL
+      critical: 'true'
+      zone_filter: true
+      zones:
+      - doorbell_front_door
+- id: '1687560273071'
+  alias: Notify Steph Driveway
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.floodlight
+      base_url: NABU_CASA_URL
+      critical: 'true'
+      zone_filter: true
+      zones:
+      - flood_enter_driveway
+      disable_times:
+      - '0'
+      - '2'
+      - '1'
+      - '3'
+      - '4'
+      - '22'
+      - '23'
+      - '21'
+      update_thumbnail: false
+      notify_device: d7b9b30b1031aa25747347c259424903
+- id: '1687560305577'
+  alias: Notify Mike Driveway
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.floodlight
+      base_url: NABU_CASA_URL
+      critical: 'true'
+      zone_filter: true
+      zones:
+      - flood_enter_driveway
+      color: steelblue
+      disable_times:
+      - '0'
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '23'
+      - '22'
+      - '21'
+      update_thumbnail: false
+      debug: false
+      notify_device: 55e6c7bc2e63b0dd8d479cb62e349d47
+- id: '1687560324140'
+  alias: Notify Mike Doorbell
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.doorbell
+      notify_device: 55e6c7bc2e63b0dd8d479cb62e349d47
+      base_url: NABU_CASA_URL
+      critical: 'true'
+      zone_filter: true
+      zones:
+      - doorbell_front_door
+      color: steelblue
+      debug: false
+- id: '1687562390747'
+  alias: Notify Doorbell Pushed
+  description: ''
+  trigger:
+  - type: turned_on
+    platform: device
+    device_id: 53f541e078dd8bce4b8fe9773b61862c
+    entity_id: binary_sensor.reolink_video_doorbell_wifi_visitor
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.frigate_phones
+    data:
+      message: Someone is at the door
+      title: Knock Knock
+      target:
+      - nofity.frigate_phones
+  mode: single
+- id: '1688849445922'
+  alias: Notify Mike Deck
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.deck
+      notify_device: 55e6c7bc2e63b0dd8d479cb62e349d47
+      base_url: NABU_CASA_URL
+      critical: 'true'
+- id: '1688849481628'
+  alias: Notify Steph Deck
+  description: ''
+  use_blueprint:
+    path: SgtBatten/Stable.yaml
+    input:
+      camera: camera.deck
+      base_url: NABU_CASA_URL
+      critical: 'true'
+      notify_device: d7b9b30b1031aa25747347c259424903
+- id: '1690458871116'
+  alias: Notify Mike Reolink Port Broken
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: reolink/port_status
+  condition:
+  - condition: template
+    value_template: '{{ trigger.payload_json[''status''] == "broken" }}'
+    enabled: true
+  action:
+  - service: notify.mobile_app_pixel_6_mike
+    data_template:
+      message: '{{ trigger.payload_json.camera }} ports broken'
+      title: '{{ trigger.payload_json.camera }} ports broken'
+      target:
+      - notify.mobile_app_pixel_6_mike
+  mode: single
+- id: '1690588303502'
+  alias: Notify Mike Test Stationary
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: frigate/events
+  condition:
+  - condition: template
+    value_template: '{% if trigger.payload_json["after"]["stationary"] == false %}
 
+      true
+
+      {% else %}
+
+      false
+
+      {% endif %}'
+  action:
+  - service: notify.mobile_app_pixel_6_mike
+    data:
+      message: motion trigger
+      title: motion trigger
+      target:
+      - notify.mobile_app_pixel_6_mike
+  mode: single
