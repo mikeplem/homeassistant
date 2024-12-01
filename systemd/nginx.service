@@ -6,8 +6,9 @@ Restart=on-failure
 RestartSec=10
 ExecStartPre=-/usr/bin/podman rm nginx
 ExecStartPre=-/usr/bin/podman pull docker.io/nginx:latest
-ExecStart=/usr/bin/podman run --rm --init --name nginx -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf:ro -v /root/.acme.sh/homeassistant.n1mtp.com_ecc/fullchain.cer:/etc/nginx/cert.pem:ro -v /root/.acme.sh/homeassistant.n1mtp.com_ecc/homeassistant.n1mtp.com.key:/etc/nginx/cert.key:ro --network host docker.io/nginx:latest
+ExecStart=/usr/bin/podman run --rm --init --name nginx -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf:ro -v /root/.acme.sh/homeassistant.n1mtp.com_ecc/fullchain.cer:/etc/nginx/cert.pem:ro -v /root/.acme.sh/homeassistant.n1mtp.com_ecc/homeassistant.n1mtp.com.key:/etc/nginx/cert.key:ro -v /root/.acme.sh/twc.n1mtp.com_ecc/fullchain.cer:/etc/nginx/twc_cert.pem:ro -v /root/.acme.sh/twc.n1mtp.com_ecc/twc.n1mtp.com.key:/etc/nginx/twc_cert.key:ro --network host docker.io/nginx:latest
 
 [Install]
 WantedBy=multi-user.target
+
 
